@@ -27,6 +27,7 @@ model Book {
   belongsTo   User     @relation(fields: [belongsToId], references: [id])
   review      Review[]
   asset     String?
+  @@unique([id, belongsToId])
 }
 
 model Review {
@@ -39,4 +40,5 @@ model Review {
 
   belongsToId String
   belongsTo   Book   @relation(fields: [belongsToId], references: [id])
+  @@unique([id, belongsToId])
 }

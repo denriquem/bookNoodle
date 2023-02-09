@@ -1,45 +1,52 @@
 import { Router } from "express";
 import { body, validationResult } from "express-validator";
+import {
+	createBook,
+	deleteBook,
+	getBooks,
+	getOneBook,
+	updateBook,
+} from "./handlers/book";
+import {
+	createReview,
+	deleteReview,
+	getReviewById,
+	getReviews,
+	updateReview,
+} from "./handlers/review";
 import { handleInputErrors } from "./modules/middleware";
 
 const router = Router();
 
 // Book
-router.get("/book", (req, res) => {
-	res.json({ message: req.sh_secret });
-});
-router.get("/book/:id", () => {});
+router.get("/book", getBooks);
+router.get("/book/:id", getOneBook);
 router.put(
 	"/book/:id",
 	body("title").isString(),
 	handleInputErrors,
-	(req, res) => {}
+	updateBook
 );
-router.post(
-	"/book",
-	body("title").isString(),
-	handleInputErrors,
-	(req, res) => {}
-);
-router.delete("/book/:id", () => {});
+router.post("/book", body("title").isString(), handleInputErrors, createBook);
+router.delete("/book/:id", deleteBook);
 
 // Review
-router.get("/review", () => {});
-router.get("/review/:id", () => {});
+router.get("/review", getReviews);
+router.get("/review/:id", getReviewById);
 router.put(
 	"/review/:id",
 	body("title").isString(),
 	body("review").isString(),
 	handleInputErrors,
-	(req, res) => {}
+	updateReview
 );
 router.post(
 	"/review",
 	body("title").isString(),
 	body("review").isString(),
 	handleInputErrors,
-	(req, res) => {}
+	createReview
 );
-router.delete("/review/:id", () => {});
+router.delete("/review/:id", deleteReview);
 
 export default router;
