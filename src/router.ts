@@ -35,8 +35,8 @@ router.get("/review", getReviews);
 router.get("/review/:id", getReviewById);
 router.put(
 	"/review/:id",
-	body("title").isString(),
-	body("review").isString(),
+	body("title").optional().isString(),
+	body("review").optional().isString(),
 	handleInputErrors,
 	updateReview
 );

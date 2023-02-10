@@ -18,16 +18,18 @@ export const getReviews = async (req, res) => {
 };
 
 export const getReviewById = async (req, res) => {
+	console.log("test");
 	const id = req.params.id;
+
+	console.log(id);
 
 	const review = await prisma.review.findUnique({
 		where: {
-			id_belongsToId: {
-				id,
-				belongsToId: req.user.id,
-			},
+			id: req.params.id,
 		},
 	});
+
+	console.log(review);
 
 	res.json({ data: review });
 };
@@ -35,7 +37,7 @@ export const getReviewById = async (req, res) => {
 export const createReview = async (req, res) => {
 	const book = await prisma.book.findUnique({
 		where: {
-			id: req.body.id,
+			id: req.body.belongsToId,
 		},
 	});
 
