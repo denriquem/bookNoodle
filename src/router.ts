@@ -49,4 +49,9 @@ router.post(
 );
 router.delete("/review/:id", deleteReview);
 
+router.use((err, req, res, next) => {
+	console.log(res);
+	res.json({ message: "in router handler" });
+});
+
 export default router;

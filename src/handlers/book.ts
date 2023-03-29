@@ -29,15 +29,19 @@ export const getOneBook = async (req, res) => {
 };
 
 // createBook
-export const createBook = async (req, res) => {
-	const book = await prisma.book.create({
-		data: {
-			title: req.body.title,
-			belongsToId: req.user.id,
-		},
-	});
+export const createBook = async (req, res, next) => {
+	try {
+		const book = await prisma.book.create({
+			data: {
+				title: req.body.title,
+				belongsToId: req.user.id,
+			},
+		});
 
-	res.json({ data: book });
+		res.json({ data: book });
+	} catch (err) {
+		next(err);
+	}
 };
 
 // updateBook
